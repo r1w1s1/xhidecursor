@@ -55,8 +55,9 @@ int main(void) {
     // Process input events.
     r = XDefaultRootWindow(d);
     xi_select_events(XI_RawKeyPress);
-    XEvent e;
-    while (!XNextEvent(d, &e)) {
+    while (True) {
+        XEvent e;
+        XNextEvent(d, &e);
         if (e.type != GenericEvent || !XGetEventData(d, &e.xcookie))
             continue;
         XGenericEventCookie *c = &e.xcookie;
@@ -82,6 +83,4 @@ int main(void) {
         }
         XFreeEventData(d, c);
     }
-    XCloseDisplay(d);
-    return 0;
 }
