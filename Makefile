@@ -17,9 +17,9 @@ CFLAGS += -Wshadow
 
 all: xhidecursor
 
-xhidecursor: main.c Makefile
+xhidecursor: xhidecursor.c Makefile
 	$(CC) $(CPPFLAGS) $(CFLAGS) `$(PKG_CONFIG) --cflags $(PKGS)` \
-	    -o $@ main.c $(LDFLAGS) `$(PKG_CONFIG) --libs $(PKGS)` $(LDLIBS)
+	    -o $@ xhidecursor.c $(LDFLAGS) `$(PKG_CONFIG) --libs $(PKGS)` $(LDLIBS)
 
 install: all
 	mkdir -p $(DESTDIR)$(BINDIR)
