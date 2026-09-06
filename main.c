@@ -5,6 +5,9 @@
 #include <X11/extensions/XInput2.h>
 
 #include <stdio.h>
+#ifdef __OpenBSD__
+#include <unistd.h>
+#endif
 
 static void xi_select_events(int);
 
@@ -41,6 +44,14 @@ int main(void) {
         XCloseDisplay(d);
         return 1;
     }
+    // Restrict on OpenBSD system operations to stdio and the existing X connection.
+#ifdef __OpenBSD__
+    if (pledge("stdio", NULL) == -1) {
+        perror("xhidecursor: pledge");
+        XCloseDisplay(d);
+        return 1;
+    }
+#endif
     // Process input events.
     r = XDefaultRootWindow(d);
     xi_select_events(XI_RawKeyPress);
