@@ -26,7 +26,7 @@ static void xi_select_events(const int event) {
 }
 
 int main(void) {
-    /* Check runtime requirements. */
+    // Check runtime requirements.
     if (!(d = XOpenDisplay(NULL))) {
         fprintf(stderr, "xhidecursor: cannot open display %s\n", XDisplayName(NULL));
         return 1;
@@ -57,14 +57,12 @@ int main(void) {
     xi_select_events(XI_RawKeyPress);
     XEvent e;
     while (!XNextEvent(d, &e)) {
-        if (e.type != GenericEvent ||
-            !XGetEventData(d, &e.xcookie))
+        if (e.type != GenericEvent || !XGetEventData(d, &e.xcookie))
             continue;
         XGenericEventCookie *c = &e.xcookie;
         switch (c->evtype) {
             // XSync discards queued events to prevent cursor-state races between key presses and mouse movement.
             case XI_RawKeyPress: {
-                // Get the keysym to check whether the pressed key is a modifier.
                 const XIRawEvent *raw_e = c->data;
                 const KeyCode keycode = (KeyCode)raw_e->detail;
                 const KeySym keysym = XkbKeycodeToKeysym(d, keycode, 0, 0);
