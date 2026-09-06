@@ -22,14 +22,13 @@ xhidecursor: xhidecursor.c Makefile
 	    -o $@ xhidecursor.c $(LDFLAGS) `$(PKG_CONFIG) --libs $(PKGS)` $(LDLIBS)
 
 install: all
-	mkdir -p $(DESTDIR)$(BINDIR)
-	mkdir -p $(DESTDIR)$(MANDIR)
-	install -m 755 xhidecursor $(DESTDIR)$(BINDIR)/xhidecursor
-	install -m 644 xhidecursor.1 $(DESTDIR)$(MANDIR)/xhidecursor.1
+	mkdir -p "$(DESTDIR)$(BINDIR)" "$(DESTDIR)$(MANDIR)"
+	install -m 755 xhidecursor "$(DESTDIR)$(BINDIR)/xhidecursor"
+	install -m 644 xhidecursor.1 "$(DESTDIR)$(MANDIR)/xhidecursor.1"
 
 uninstall:
-	rm -f $(DESTDIR)$(BINDIR)/xhidecursor
-	rm -f $(DESTDIR)$(MANDIR)/xhidecursor.1
+	rm -f "$(DESTDIR)$(BINDIR)/xhidecursor"
+	rm -f "$(DESTDIR)$(MANDIR)/xhidecursor.1"
 
 clean:
 	rm -f xhidecursor
