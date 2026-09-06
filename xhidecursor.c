@@ -9,8 +9,6 @@
 #include <unistd.h>
 #endif
 
-static void xi_select_events(int);
-
 static Display *d;
 static Window r;
 
