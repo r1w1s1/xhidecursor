@@ -44,7 +44,7 @@ int main(void) {
         XCloseDisplay(d);
         return 1;
     }
-    // Restrict on OpenBSD system operations to stdio and the existing X connection.
+    // Restrict system operations to stdio and the existing X connection.
 #ifdef __OpenBSD__
     if (pledge("stdio", NULL) == -1) {
         perror("xhidecursor: pledge");
