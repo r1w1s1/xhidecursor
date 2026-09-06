@@ -28,13 +28,16 @@ int main(void) {
         fprintf(stderr, "xhidecursor: cannot open display %s\n", XDisplayName(NULL));
         return 1;
     }
-    if (!XFixesQueryExtension(d, &(int){0}, &(int){0})) {
-        fprintf(stderr, "xhidecursor: XFixes extension is required\n");
+    int fixes_major, fixes_minor;
+    if (!XFixesQueryVersion(d, &fixes_major, &fixes_minor) || fixes_major < 4) {
+        fprintf(stderr, "xhidecursor: XFixes version 4.0 or later is required\n");
         XCloseDisplay(d);
         return 1;
     }
-    if (XIQueryVersion(d, &(int){2}, &(int){0}) != Success) {
-        fprintf(stderr, "xhidecursor: XInput2 version 2.0 or later is required\n");
+    int xi_major = 2, xi_minor = 2;
+    if (XIQueryVersion(d, &xi_major, &xi_minor) != Success ||
+        xi_major < 2 || (xi_major == 2 && xi_minor < 1)) {
+        fprintf(stderr, "xhidecursor: XInput2 version 2.1 or later is required\n");
         XCloseDisplay(d);
         return 1;
     }

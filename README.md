@@ -9,8 +9,8 @@
 ## Dependencies
 
 - libx11
-- libxi
-- libxfixes
+- libxi (XInput2 >= 2.1)
+- libxfixes (XFixes >= 4.0)
 - pkg-config
 
 ## Installation
